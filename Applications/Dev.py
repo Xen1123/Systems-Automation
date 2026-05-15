@@ -6,6 +6,13 @@ import subprocess
 import getpass
 import platform
 
+print(r"""
+ ____  _______     __
+|  _ \| ____\ \   / /
+| | | |  _|  \ \ / / 
+| |_| | |___  \ V /  
+|____/|_____|  \_/   
+)
 user = getpass.username()
 
 print(f"Hello {user}! This Script Is An Automation Program Meant To Install Some Things For You So Your System Is Ready As A Developer!")
@@ -32,4 +39,14 @@ elif platform.system == "Linux":
         os.system("sudo pacman -S android-tools base-devel code git --needed --noconfirm' >/dev/null 2>&1")
         os.system('clear')
     elif shutil.which("apt")
-        os.system
+        os.system("sudo apt install adb fastboot git snapd -y >/dev/null 2>&1")
+        os.system("sudo systemctl enable --now snapd.socket")
+        os.system("sudo snap install code --classic >/dev/null 2>&1")
+        os.system('clear')
+    elif shutil.which("dnf")
+        os.system("sudo dnf install android-tools git code -y >/dev/null 2>&1")
+        os.system('clear')
+    else:
+        os.system('clear')
+        print("No Supported Package Manager Found!")
+        sys.exit(1)
