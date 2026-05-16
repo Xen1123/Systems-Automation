@@ -27,3 +27,4 @@
         ```bash
         sudo dnf install python3 -y
         ```
+- Python is seriously all you need! Everything else works through it!
