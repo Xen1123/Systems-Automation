@@ -44,27 +44,24 @@ if platform.system() == "Windows":
 elif platform.system() == "Linux":
     if shutil.which("apt"):
         os.system("sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y")
-        os.system("sudo rm -rf ~/.cache/*")
     elif shutil.which("pacman"):
         os.system("sudo pacman -Sc --noconfirm")
         os.system("sudo rm -rf /var/cache/pacman/pkg/*")
-        os.system("sudo rm -rf ~/.cache/*")
     elif shutil.which("dnf"):
         os.system("sudo dnf autoremove -y && sudo dnf clean all -y")
-        os.system("sudo rm -rf ~/.cache/*")
     else:
         print("No Supported Package Manager Found!")
         sys.exit(1)
-    os.system("rm -rf ~/.cache/*")
-    os.system("rm -rf ~/.local/share/Trash/*")
-    os.system("rm -rf /var/cache/*")
+    os.system("sudo rm -rf ~/.cache/*")
+    os.system("sudo rm -rf ~/.local/share/Trash/*")
+    os.system("sudo rm -rf /var/cache/*")
     os.system('clear')
 elif platform.system() == "Darwin":
-    os.system("rm -rf ~/Library/Caches/*")
-    os.system("rm -rf ~/Library/Logs/*")
-    os.system("rm -rf ~/Library/Application Support/CrashReporter/*")
-    os.system("rm -rf /Library/Caches/*")
-    os.system("rm -rf /System/Library/Caches/*")
+    os.system("sudo rm -rf ~/Library/Caches/*")
+    os.system("sudo rm -rf ~/Library/Logs/*")
+    os.system("sudo rm -rf ~/Library/Application Support/CrashReporter/*")
+    os.system("sudo rm -rf /Library/Caches/*")
+    os.system("sudo rm -rf /System/Library/Caches/*")
     os.system('clear')
 else:
     print("Currently Unsupported Operating System!")
