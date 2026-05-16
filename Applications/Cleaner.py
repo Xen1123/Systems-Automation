@@ -20,6 +20,10 @@ user = getpass.getuser()
 print(f"Hello {user}! This Script Is An Automation Program Meant To Clean Your System Of Unnecessary Files And Folders To Free Up Space!")
 confirm = input("Continue? (yes/no) ")
 if confirm.lower() != "yes":
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
     sys.exit()
 if platform.system() == "Windows":
     print("Cleaning Windows temporary files and flushing DNS...")
