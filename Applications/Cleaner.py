@@ -20,14 +20,10 @@ user = getpass.getuser()
 print(f"Hello {user}! This Script Is An Automation Program Meant To Clean Your System Of Unnecessary Files And Folders To Free Up Space!")
 confirm = input("Continue? (yes/no) ")
 if confirm.lower() != "yes":
-    print("Okay, If You Change Your Mind, Just Re-Run And Type `yes` !")
-    confirm = input("Type `yes` To Exit. ")
-    if confirm.lower() == "yes":
-            print("Okay! Exiting Now!")
-            sys.exit(0)
+    sys.exit()
 if platform.system() == "Windows":
     print("Cleaning Windows temporary files and flushing DNS...")
-    
+
     subprocess.run(["ipconfig", "/flushdns"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
     
     temp_dir = os.environ.get('TEMP')
