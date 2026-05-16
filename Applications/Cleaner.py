@@ -44,11 +44,14 @@ if platform.system() == "Windows":
 elif platform.system() == "Linux":
     if shutil.which("apt"):
         os.system("sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y")
+        os.system("sudo rm -rf ~/.cache/*")
     elif shutil.which("pacman"):
         os.system("sudo pacman -Sc --noconfirm")
         os.system("sudo rm -rf /var/cache/pacman/pkg/*")
+        os.system("sudo rm -rf ~/.cache/*")
     elif shutil.which("dnf"):
         os.system("sudo dnf autoremove -y && sudo dnf clean all -y")
+        os.system("sudo rm -rf ~/.cache/*")
     else:
         print("No Supported Package Manager Found!")
         sys.exit(1)
