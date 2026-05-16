@@ -26,25 +26,21 @@ if confirm.lower() != "yes":
             print("Okay! Exiting Now!")
             sys.exit(0)
 if platform.system() == "Windows":
-    def silent_cleanup():
-        subprocess.run(["ipconfig", "/flushdns"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-        
-        subprocess.run(["wsreset"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-        
-        temp_dir = os.environ.get('TEMP')
-        if temp_dir and os.path.exists(temp_dir):
-            for item in os.listdir(temp_dir):
-                item_path = os.path.join(temp_dir, item)
-                try:
-                    if os.path.isfile(item_path) or os.path.islink(item_path):
-                        os.unlink(item_path)
-                    elif os.path.isdir(item_path):
-                        shutil.rmtree(item_path)
-                except Exception:
-                    pass
-
-        if __name__ == "__main__":
-            silent_cleanup()
+    print("Cleaning Windows temporary files and flushing DNS...")
+    
+    subprocess.run(["ipconfig", "/flushdns"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+    
+    temp_dir = os.environ.get('TEMP')
+    if temp_dir and os.path.exists(temp_dir):
+        for item in os.listdir(temp_dir):
+            item_path = os.path.join(temp_dir, item)
+            try:
+                if os.path.isfile(item_path) or os.path.islink(item_path):
+                    os.unlink(item_path)
+                elif os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+            except Exception:
+                pass
 elif platform.system() == "Linux":
     if shutil.which("apt"):
         os.system("sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y")
@@ -71,4 +67,4 @@ else:
     print("Currently Unsupported Operating System!")
     sys.exit()
 print("Okay! That's It! Your System Should Be Cleaned Up Now!")
-sys.exit(0)
+sys.exit(1)
