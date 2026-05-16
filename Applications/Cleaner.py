@@ -19,9 +19,12 @@ print(r"""
 user = getpass.getuser()
 print(f"Hello {user}! This Script Is An Automation Program Meant To Clean Your System Of Unnecessary Files And Folders To Free Up Space!")
 confirm = input("Continue? (yes/no) ")
-if confirm.lower() != "no":
+if confirm.lower() != "yes":
     print("Okay, If You Change Your Mind, Just Re-Run And Type `yes` !")
-    confirm = input("Press Enter To Exit.")
+    confirm = input("Type `yes` To Exit. ")
+    if confirm.lower() == "yes":
+            print("Okay! Exiting Now!")
+            sys.exit(0)
 if platform.system() == "Windows":
     def silent_cleanup():
         subprocess.run(["ipconfig", "/flushdns"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
@@ -66,5 +69,6 @@ elif platform.system() == "Darwin":
     os.system('clear')
 else:
     print("Currently Unsupported Operating System!")
-    confirm = input("Click Enter To Exit!")
+    sys.exit()
 print("Okay! That's It! Your System Should Be Cleaned Up Now!")
+sys.exit(0)
