@@ -1,6 +1,11 @@
 import shutil, os, subprocess, sys, getpass
 from pathlib import Path
 
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
 def organize(path):
     extension_map = {
         '.jpg': 'Images',
