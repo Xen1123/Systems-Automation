@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import getpass
 import platform
+import urllib
 
 if os.name == 'nt':
     os.system('cls')
@@ -34,10 +35,9 @@ if platform.system() == "Windows":
     if shutil.which("winget"):
         os.system('winget install Google.Chrome --silent --accept-source-agreements --accept-package-agreements')
         os.system('winget install Vencord.Vesktop --silent --accept-source-agreements --accept-package-agreements')
-        os.system('winget install Microsoft.VisualStudioCode --silent --accept-source-agreements --accept-package-agreements')
-        os.system('winget install 0x192.UniversalAndroidDebloaterGUI --silent --accept-source-agreements --accept-package-agreements')
+        os.system('winget install Spotify.Spotify --silent --accept-source-agreements --accept-package-agreements')
         os.system('cls')
-        print("Okay! That's It! All I Did Was Install Git, ADB & Fastboot, VSCode, And The Universal Android Debloater GUI!")
+        print("Okay! That's It! All I Did Was Install Chrome, Vesktop, And Spotify!")
         sys.exit(1)
     else:
         os.system('cls')
