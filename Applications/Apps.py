@@ -6,6 +6,9 @@ import subprocess
 import getpass
 import platform
 import urllib
+import platform
+
+arch = platform.machine().lower()
 
 if os.name == 'nt':
     os.system('cls')
@@ -33,11 +36,10 @@ if confirm.lower() != "yes":
     sys.exit(1)
 if platform.system() == "Windows":
     if shutil.which("winget"):
-        os.system('winget install Google.Chrome --silent --accept-source-agreements --accept-package-agreements')
         os.system('winget install Vencord.Vesktop --silent --accept-source-agreements --accept-package-agreements')
         os.system('winget install Spotify.Spotify --silent --accept-source-agreements --accept-package-agreements')
         os.system('cls')
-        print("Okay! That's It! All I Did Was Install Chrome, Vesktop, And Spotify!")
+        print("Okay! That's It! All I Did Was Install Vesktop And Spotify!")
         sys.exit(1)
     else:
         os.system('cls')
@@ -45,10 +47,52 @@ if platform.system() == "Windows":
         sys.exit(1)
 elif platform.system() == "Linux":
     if shutil.which("pacman"):
-        os.system('clear')
+        if shutil.which("yay"):
+            print("\nInstalling Spotify & Vesktop!")
+            subprocess.run([
+                "yay", "-S", "spotify", "vesktop", "--noconfirm"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            break
+        elif shutil.which("paru"):
+            print("\nInstalling Spotify & Vesktop!")
+            subprocess.run([
+                "paru", "-S", "spotify", "vesktop", "--noconfirm"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            break
+        else:
+            print("Supported AUR Helpers Not Found!")
+            sys.exit(0)
+        sys.exit(1)
     elif shutil.which("apt"):
-        os.system('clear')
+        os.system("curl -sS https://download.spotify.com/debian/pubkey_5384CE82BA52C83A.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg")
+        os.system('echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list')
+        subprocess.run([
+            "sudo", "apt-get", "update", "-y", "&&", "sudo", "apt-get", "install", "spotify-client", "-y"
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if arch in ['x86_64', 'amd64']:
+            url = "https://vencord.dev/download/vesktop/amd64/deb"
+            file_name = "Vesktop_AMD64.deb"
+            urllib.request.urlretrieve(url, file_name)
+            subprocess.run([
+                "sudo", "apt", "install", "Vesktop_AMD64.deb"
+            ])
+        elif arch in ['aarch64', 'arm64']:
+            url = "https://vencord.dev/download/vesktop/arm64/deb"
+            file_name = "Vesktop_Arm64.deb"
+            urllib.request.urlretrieve(url, file_name)
+            subprocess.run([
+                "sudo", "apt", "install", "Vesktop_Arm64.deb"
+            ])
+        else:
+            print(f"Unknown architecture: {arch}")
+            sys.exit(0)
     elif shutil.which("dnf"):
+        subprocess.run([
+            "sudo", "dnf", "copr", "enable", "jeffpeng3/vesktop"
+        ])
+        subprocess.run([
+            "sudo", "dnf", "install", "vesktop"
+        ])
         os.system('clear')
     else:
         os.system('clear')
