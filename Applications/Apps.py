@@ -28,8 +28,8 @@ print(r"""
 
 user = getpass.getuser()
 
-print(f"Hello {user}! This Script Is An Automation Program Meant To Install Some Things For You So Your System Is Ready As A User!")
-confirm = input("Continue? (yes/no) ")
+print(f"\nHello {user}! This Script Is An Automation Program Meant To Install Some Things For You So Your System Is Ready As A User!")
+confirm = input("\nContinue? (yes/no) ")
 
 if confirm.lower() != "yes":
     print("Okay, If You Change Your Mind, Just Re-Run And Type `yes` !")
@@ -52,13 +52,11 @@ elif platform.system() == "Linux":
             subprocess.run([
                 "yay", "-S", "spotify", "vesktop", "--noconfirm"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            break
         elif shutil.which("paru"):
             print("\nInstalling Spotify & Vesktop!")
             subprocess.run([
                 "paru", "-S", "spotify", "vesktop", "--noconfirm"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            break
         else:
             print("Supported AUR Helpers Not Found!")
             sys.exit(0)
