@@ -23,7 +23,7 @@ print(r"""
 """)
 
 user = getpass.getuser()
-# CHANGE
+
 print(
     f"Hello {user}! This Script Is An Automation Program Meant To Install Some Things For You So Your System Is Ready As A Developer!"
 )
