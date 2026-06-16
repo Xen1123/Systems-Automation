@@ -27,9 +27,9 @@ user = getpass.getuser()
 print(
     f"Hello {user}! This Script Is An Automation Program Meant To Install Some Things For You So Your System Is Ready As A Developer!"
 )
-confirm = input("Continue? (yes/no) ")
+confirm = input("Continue? (y/n) ")
 
-if confirm.lower() != "yes":
+if confirm.lower() != "y":
     print("Okay, If You Change Your Mind, Just Re-Run And Type `yes` !")
     sys.exit(1)
 if platform.system() == "Windows":
