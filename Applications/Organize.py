@@ -1,22 +1,31 @@
-import shutil, os, subprocess, sys, getpass
+import getpass
+import os
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
-if os.name == 'nt':
-    os.system('cls')
+if os.name == "nt":
+    os.system("cls")
 else:
-    os.system('clear')
+    os.system("clear")
+
 
 def organize(path):
     extension_map = {
-        '.jpg': 'Images',
-        '.png': 'Images',
-        '.pdf': 'Documents',
-        '.txt': 'Documents',
-        '.mp4': 'Videos',
-        '.mp3': 'Music/Audio',
-        '.py':  'Scripts',
-        '.sh': 'Scripts',
-        '.bat': 'Scripts'
+        ".jpg": "Images",
+        ".png": "Images",
+        ".webp": "Images",
+        ".gif": "Images",
+        ".svg": "Images",
+        ".ico": "Images",
+        ".pdf": "Documents",
+        ".txt": "Documents",
+        ".mp4": "Videos",
+        ".mp3": "Music/Audio",
+        ".py": "Scripts",
+        ".sh": "Scripts",
+        ".bat": "Scripts",
     }
 
     for filename in os.listdir(path):
@@ -34,4 +43,5 @@ def organize(path):
                 shutil.move(filepath, os.path.join(target_dir), filename)
                 print(f"Moved: {filename} -> {extension_map[ext]}/")
 
-organize('./')
+
+organize("./")
