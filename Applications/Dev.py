@@ -2,9 +2,7 @@ import getpass
 import os
 import platform
 import shutil
-import subprocess
 import sys
-import time
 
 if os.name == "nt":
     os.system("cls")
