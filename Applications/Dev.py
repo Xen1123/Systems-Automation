@@ -39,7 +39,7 @@ if platform.system() == "Windows":
             "winget install Google.PlatformTools --silent --accept-source-agreements --accept-package-agreements"
         )
         os.system(
-            "winget install ZedIndustries.Zed --silent --accept-source-agreements --accept-package-agreements"
+            "winget install Microsoft.VisualStudioCode --silent --accept-source-agreements --accept-package-agreements"
         )
         os.system(
             "winget install 0x192.UniversalAndroidDebloaterGUI --silent --accept-source-agreements --accept-package-agreements"
@@ -56,7 +56,7 @@ if platform.system() == "Windows":
 elif platform.system() == "Linux":
     if shutil.which("pacman"):
         os.system(
-            "sudo pacman -S zed android-tools base-devel git --needed --noconfirm"
+            "sudo pacman -S code android-tools base-devel git --needed --noconfirm"
         )
         os.system("clear")
     elif shutil.which("apt"):
