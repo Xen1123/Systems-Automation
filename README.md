@@ -3,8 +3,9 @@
 
 ## Prerequisite:
     - Python Needs To Be Installed And In Your Path:
-        <details>
-        <summary><b>Python Installation</b></summary>
+        
+<details>
+<summary><b>Python Installation</b></summary>
 
         - Installing Python On Linux
             - Debian/Ubuntu:
@@ -35,4 +36,4 @@
                 brew install python
                 ```
 
-        </details>
+</details>
