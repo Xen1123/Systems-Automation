@@ -37,3 +37,6 @@
         ```
 
 </details>
+
+- You Also Must Have The Permissions To Run Scripts.
+
