@@ -26,6 +26,8 @@ def organize(path):
         ".py": "Scripts",
         ".sh": "Scripts",
         ".bat": "Scripts",
+        ".c": "Scripts",
+        ".js": "Scripts",
     }
 
     for filename in os.listdir(path):
