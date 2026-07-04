@@ -1,30 +1,38 @@
 <h1 align=center>Systems Automation</h1>
 <h3 align=center>Linux & Windows Only! Utilizing Python</h3>
 
-## Setup
+## Prerequisite:
+    - Python Needs To Be Installed And In Your Path:
+        <details>
+        <summary><b>Python Installation</b></summary>
 
-- Download Python [Here](https://www.python.org/downloads/) Or Install Via CLI:
-    - < On Windows >
-    
-        ```bash
-        winget install 9PNRBTZXMB4Z --silent --accept-source-agreements --accept-package-agreements
-        ```
-    - < On Debian >
+        - Installing Python On Linux
+            - Debian/Ubuntu:
+                ```bash
+                sudo apt install python3
+                ```
+            - Arch Linux:
+                ```bash
+                sudo pacman -S python
+                ```
+            - Fedora:
+                ```bash
+                sudo dnf install python
+                ```
         
-        ```bash
-        sudo apt install python3 -y
-        ```
-        - This Version Likely Is Behind, As Debian Focuses On Stability Over New Versions, So Features MAY Be Missing!
+        - Installing Python On Windows
+            - If You Have Winget:
+                ```bash
+                winget install 9NQ7512CXL7T
+                ```
+            - If Winget Is NOT Present
+                - Install This [.msix](https://www.python.org/ftp/python/pymanager/python-manager-26.3.msix) File
 
-    - < On Arch >
+        - Installing Python On macOS
+            - Install Brew:
+                ```bash
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                brew install python
+                ```
 
-        ```bash
-        sudo pacman -S python --noconfirm
-        ```
-    
-    - < On Fedora >
-
-        ```bash
-        sudo dnf install python3 -y
-        ```
-- Python is seriously all you need! Everything else works through it!
+        </details>
