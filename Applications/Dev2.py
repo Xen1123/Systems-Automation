@@ -1,4 +1,4 @@
-import getpass, os, platform, shutil, sys, time, subprocess
+import getpass, os, platform, shutil, sys, time, subprocess, urllib.request
 
 def clear():
     if os.name == "nt":
@@ -19,7 +19,6 @@ print(r"""
 
 user = getpass.getuser()
 print(f"Hello {user}! This script will allow you to quickly install some apps that are considered necessary for the typical user!")
-time.sleep(2)
 
 keepgoing = input("Continue? (y/n) ")
 if keepgoing.lower() == "y":
@@ -120,6 +119,8 @@ if keepgoing.lower() == "y":
             if adbconfirm.lower() == "y":
                 print("Installing ADB & Fastboot!")
                 adbin = subprocess.run(["sudo", "pacman", "-Sy", "android-tools", "--needed", "--noconfirm"], capture_output=True, text=True)
+            elif adbconfirm.lower() != "y":
+                clear()
 
             # VISUAL STUDIO CODE (VSCODE)
 
@@ -160,6 +161,8 @@ if keepgoing.lower() == "y":
                             print("Failed to install VSCode!")
                         elif yayVSCode.returncode == 0:
                             pass
+            elif vscodepac.lower() != "y":
+                clear()
 
             # SSH
 
@@ -167,7 +170,7 @@ if keepgoing.lower() == "y":
             if sshpac.lower() != "y":
                 clear()
             elif sshpac.lower() == "y":
-                sshin = subprocess.run(["sudo", "pacman", "-S", "openssh"], capture_output=True, text=True)
+                sshin = subprocess.run(["sudo", "pacman", "-S", "openssh", "--noconfirm"], capture_output=True, text=True)
                 if sshin.returncode == 0:
                     pass
                 else:
@@ -187,7 +190,90 @@ if keepgoing.lower() == "y":
                     subprocess.run(["sudo", "echo", "'#!/usr/bin/execlineb -P'", ">", "/etc/s6-rc/sv/sshd/run"])
                     subprocess.run(["sudo", "echo", "'fdmove -c 2 1'", ">>", "/etc/s6-rc/sv/sshd/run"])
                     subprocess.run(["sudo", "echo", "'exec /usr/bin/ssh'", ">>", "/etc/s6-rc/sv/sshd/run"])
-                    
+
+            # DEBIAN/UBUNTU GIT     
+                   
+        elif shutil.which("apt"):
+            pingcheck_deb = subprocess.run(["ping", "-c", "1", "google.com"], capture_output=True, text=True)
+            if pingcheck_deb.returncode != 0:
+                print("You don't actually have internet!")
+                time.sleep(2)
+                sys.exit(1)
+            elif pingcheck_deb.returncode == 0:
+                print("You have internet!")
+                time.sleep(1)
+
+            deb_git = input("Install Git? (y/n) ")
+            if deb_git.lower() != "y":
+                clear()
+            elif deb_git.lower() == "y":
+                print("Installing Git!")
+                gitin_deb = subprocess.run(["sudo", "apt", "install", "git", "-y"], capture_output=True, text=True)
+                if gitin_deb.returncode != 0:
+                    print("Git failed to install!")
+                elif gitin_deb.returncode == 0:
+                    print("Git installed!")
+
+            # ADB & FASTBOOT
+
+            adb_deb = input("Install ADB & Fastboot? (y/n) ")
+            if adb_deb.lower() != "y":
+                clear()
+            elif deb_git.lower() == "y":
+                print("Installing ADB & Fastboot!")
+                af_fail = subprocess.run(["sudo", "apt", "install", "adb", "fastboot", "-y"], capture_output=True, text=True)
+                if af_fail.returncode != 0:
+                    print("ADB & Fastboot failed to install!")
+                elif af_fail.returncode == 0:
+                    print("ADB & Fastboot installed!")
+
+            # Nala APT
+
+            if shutil.which("nala"):
+                pass
+            else:
+                nala_in = input("Install Nala? It is a frontend for APT that is faster and prettier. (y/n) ")
+                if nala_in.lower() != "y":
+                    clear()
+                elif nala_in.lower() == "y":
+                    print("Installing Nala!")
+                    nala_fail = subprocess.run(["sudo", "apt", "install", "nala", "-y"], capture_output=True, text=True)
+                    if nala_fail.returncode != 0:
+                        print("Nala failed to install!")
+                    elif nala_fail.returncode == 0:
+                        print("Nala installed!")
+
+            # VSCode
+            
+            vs_deb = input("Install Visual Studio Code? (VSCode) (y/n) ")
+            if vs_deb.lower() != "y":
+                clear()
+            else:
+                url = "https://go.microsoft.com/fwlink/?LinkID=760868"
+                file = "VSCode.deb"
+                print("Grabbing VSCode app file from web!")
+                urllib.request.urlretrieve(url, file)
+                if os.path.isfile("VSCode.deb"):
+                    input("The file is here on your computer now, but this script can't install it due to the file bringing up extra prompts. You'll have to install it later. Please click any key to continue! ")
+                else:
+                    print("Failed to grab VSCode installation package!")
+
+            # SSH
+
+            ssh_deb = input("Install SSH? (y/n) ")
+            if ssh_deb.lower() != "y":
+                clear()
+            else:
+                print("Installing SSH!")
+                ssh_fail_deb = subprocess.run(["sudo", "apt", "install", "openssh-server", "-y"], capture_output=True, text=True)
+                if ssh_fail_deb.returncode != 0:
+                    print("Failed to install SSH!")
+                else:
+                    if shutil.which("systemctl"):
+                        subprocess.run(["sudo", "systemctl", "enable", "--now", "sshd"])
+                    else:
+                        pass
+            
 elif keepgoing.lower() != "y":
     clear()
     input("Okay! Stopping here! ")
