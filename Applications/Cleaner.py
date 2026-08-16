@@ -55,12 +55,12 @@ elif platform.system() == "Linux":
             os.system("cls")
         else:
             os.system("clear")
-        conf = input("Remove packages from /var/cache/pacman/pkg? Old packages are kept here for rollbacks, they aren't needed typically, but good to keep before a big update! (y/n) ")
+        conf = input("Remove package cache files? They aren't needed typically, but good to keep before a big update! (y/n) ")
         if conf.lower() != "y":
             print("Skipping!")
             pass
-        if conf.lower() != "n":
-            os.system("sudo rm -rf /var/cache/pacman/pkg/*")
+        if conf.lower() == "y":
+            os.system("sudo pacman -Sc --noconfirm")
     elif shutil.which("dnf"):
         os.system("sudo dnf autoremove -y && sudo dnf clean all -y")
     else:
