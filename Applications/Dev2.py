@@ -273,7 +273,76 @@ if keepgoing.lower() == "y":
                         subprocess.run(["sudo", "systemctl", "enable", "--now", "sshd"])
                     else:
                         pass
-            
+
+        # Fedora DNF
+
+        elif shutil.which("dnf"):
+            dnf_ping = subprocess.run(["ping", "-c", "1", "google.com"], capture_output=True, text=True)
+            if dnf_ping.returncode != 0:
+                print("You aren't connected to the internet!")
+                time.sleep(2)
+                sys.exit(1)
+            elif dnf_ping.returncode == 0:
+                print("You have internet!")
+                time.sleep(1)
+
+            # Git
+
+            if not shutil.which("git"):
+                git_dnf = input("Install Git? (y/n) ")
+                if git_dnf.lower() != "y":
+                    clear()
+                else:
+                    print("Installing Git!")
+                    git_fail_dnf = subprocess.run(["sudo", "dnf", "install", "git", "-y"], capture_output=True, text=True)
+                    if git_fail_dnf.returncode == 0:
+                        print("Git installed!")
+                    else:
+                        print("Git failed to install!")
+
+            # SSH
+
+            if not shutil.which("ssh"):
+                ssh_dnf = input("Install SSH? (y/n) ")
+                if ssh_dnf.lower != "y":
+                    clear()
+                else:
+                    print("Installing SSH!")
+                    ssh_dnf_fail = subprocess.run(["sudo", "dnf", "install", "openssh-server", "-y"], capture_output=True, text=True)
+                    if ssh_dnf_fail.returncode == 0:
+                        print("SSH installed!")
+                        subprocess.run(["sudo", "systemctl", "enable", "--now", "sshd"])
+                    else:
+                        print("SSH not installed!")
+
+            # VSCode
+
+            if not shutil.which("code"):
+                code_dnf = input("Install VSCode? (y/n) ")
+                if code_dnf.lower() != "y":
+                    clear()
+                else:
+                    print("Installing VSCode!")
+                    subprocess.run(["sudo", "rpm", "--import", "https://packages.microsoft.com/keys/microsoft.asc" "&&" "echo", "-e" "'[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc'", "|", "sudo", "tee", "/etc/yum.repos.d/vscode.repo", ">", "/dev/null"], capture_output=True, text=True)
+                    code_install = subprocess.run(["dnf", "check-update", "&&", "sudo", "dnf", "install", "code", "-y"], capture_output=True, text=True)
+                    if code_install.returncode != 0:
+                        print("Failed to install VSCode!")
+                    else:
+                        print("VSCode installed!")
+
+            # ADB & Fastboot
+
+            if not shutil.which("adb"):
+                af_dnf = input("Install ADB & Fastboot? (y/n) ")
+                if af_dnf.lower() != "y":
+                    clear()
+                else:
+                    af_in = subprocess.run(["sudo", "dnf", "install", "android-tools", "-y"], capture_output=True, text=True)
+                    if af_in.returncode == 0:
+                        print("ADB & Fastboot installed!")
+                    else:
+                        print("ADB & Fastbooted failed to install!")
+
 elif keepgoing.lower() != "y":
     clear()
-    input("Okay! Stopping here! ")
+    input("Okay! Stopping here! Click any key to exit! ")
