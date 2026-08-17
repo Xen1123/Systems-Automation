@@ -78,13 +78,12 @@ if keepgoing.lower() == "y":
 
         sshconfirm = input("Install SSH? (y/n) ")
         if sshconfirm.lower() == "y":
-            print("Installing SSH!")
-            sshfail = subprocess.run(["winget", "install", "Microsoft.OpenSSH.Beta", "--silent", "--accept-source-agreements", "--accept-package-agreements"], capture_output=True, text=True)
-            if sshfail.returncode != 0:
-                print("SSH not installed!")
-                time.sleep(2)
-            elif sshfail.returncode == 0:
-                pass
+            print("On Windows, there isn't a direct way to install SSH automatically that works the same across different versions, so you will need to install it manually.")
+            time.sleep(3)
+            input("First, go to settings. (click any key to continue) ")
+            input("Second, type 'optional features' -> 'view features' ")
+            input("'see available features' ")
+            input("Type 'ssh' and select both SSH features ")
         elif sshconfirm.lower() != "y":
             clear()
 
